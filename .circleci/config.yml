@@ -1,0 +1,19 @@
+version: 2.1
+
+orbs:
+  newman: postman/newman@1.0.0
+
+jobs:
+  newman-collection-run:
+    executor: newman/postman-newman-docker
+    steps:
+      - checkout
+
+      - newman/newman-run:
+          collection: https://api.getpostman.com/collections/9677442-33e9f779-fbda-4e61-8e6d-f453a73a0d5f?apikey=$POSTMAN_API_KEY
+          environment: https://api.getpostman.com/environments/9677442-85d518fb-d1fe-49aa-a823-e7d8818c1008?apikey=$POSTMAN_API_KEY
+
+workflows:
+  run-collection-workflow:
+    jobs:
+      - newman-collection-run
